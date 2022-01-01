@@ -7,24 +7,31 @@ def exp(b: int, p: int):
     Performs exponentiation using the definition.
     We ignore case in which exponent is negative for simplicity.
     """
-    n = b
-    for _ in range(1, p):
-        n = n * b
+    if b == 0:
+        return 0
+    elif b == 1:
+        return 1
+    elif p == 0:
+        return 1
+    else:
+        n = b
+        for _ in range(1, p):
+            n = n * b
 
     return n
 
 
-def rpe_exp(x, n):
-    if n < 0:
-        return rpe_exp(1 / x, -n)
-    elif n == 0:
+def rpe_exp(b, p):
+    if p < 0:
+        return rpe_exp(1 / b, -p)
+    elif p == 0:
         return 1
-    elif n == 1:
-        return x
-    elif odd(n):
-        return x * rpe_exp(x * x, (n - 1) / 2)
+    elif p == 1:
+        return b
+    elif odd(p):
+        return b * rpe_exp(b * b, (p - 1) / 2)
     else:
-        return rpe_exp(x * x, n / 2)
+        return rpe_exp(b * b, p / 2)
 
 
 def fast_rpe_exp(b: int, p: int):

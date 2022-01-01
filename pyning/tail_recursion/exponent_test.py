@@ -1,65 +1,34 @@
 import logging.config
-import time
 import unittest
 
-from pyning.tail_recursion import exponent
+from pyning.tail_recursion.exponent import exp
+from pyning.utils.testutils import BaseTest
 
 log = logging.getLogger(__name__)
 
 
-class ExponentTest(unittest.TestCase):
+class ExponentTest(BaseTest):
 
-    def check(self, f, b, p, xr):
-        r = f(b, p)
-        self.assertEqual(
-            r,
-            xr,
-            "Expected {} to yield {} but was {} !".format(f.__name__, xr, r))
+    def test_0_exp_3(self):
+        self.check(f=exp, xr=0, b=0, p=3)
 
-    def test_exp(self):
-        self.check(exponent.exp, 3, 3, 27)
-        self.check(exponent.exp, 3, 4, 81)
-        self.check(exponent.exp, 3, 6, 729)
+    def test_1_exp_3(self):
+        self.check(f=exp, xr=1, b=1, p=3)
 
-    def test_rpe_exp(self):
-        self.check(exponent.rpe_exp, 3, 3, 27)
-        self.check(exponent.rpe_exp, 3, 4, 81)
-        self.check(exponent.rpe_exp, 3, 6, 729)
+    def test_2_exp_0(self):
+        self.check(f=exp, xr=1, b=2, p=0)
 
-    def test_fast_rpe_exp(self):
-        self.check(exponent.fast_rpe_exp, 3, 3, 27)
-        self.check(exponent.fast_rpe_exp, 3, 4, 81)
-        self.check(exponent.fast_rpe_exp, 3, 6, 729)
+    def test_2_exp_1(self):
+        self.check(f=exp, xr=2, b=2, p=1)
 
-    def test_speed(self):
-        b = 3
-        p = 240000
-        # Compare speeds
-        t0 = time.time_ns()
-        exponent.exp(b, p)
-        t1 = time.time_ns()
-        exp_duration = t1 - t0
-        log.debug(f"exp took\t\t\t{exp_duration:>12} nanoseconds to calculate"
-                  f" {b} ^ {p}")
+    def test_3_exp_3(self):
+        self.check(f=exp, xr=27, b=3, p=3)
 
-        # Compare speeds
-        t0 = time.time_ns()
-        exponent.rpe_exp(b, p)
-        t1 = time.time_ns()
-        rpe_exp_duration = t1 - t0
-        log.debug(f"rpe_exp took\t\t{rpe_exp_duration:>12} nanoseconds to "
-                  f"calculate {b} ^ {p}")
+    def test_3_exp_4(self):
+        self.check(f=exp, xr=81, b=3, p=4)
 
-        # Compare speeds
-        t0 = time.time_ns()
-        exponent.fast_rpe_exp(b, p)
-        t1 = time.time_ns()
-        fast_rpe_exp_duration = t1 - t0
-        log.debug(f"fast_rpe_exp took\t{fast_rpe_exp_duration:>12} nanoseconds"
-                  f" to calculate {b} ^ {p}")
-
-        self.assertLess(rpe_exp_duration, exp_duration)
-        self.assertLess(fast_rpe_exp_duration, exp_duration)
+    def test_3_exp_6(self):
+        self.check(f=exp, xr=729, b=3, p=6)
 
 
 if __name__ == '__main__':
