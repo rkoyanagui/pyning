@@ -1,4 +1,4 @@
-import logging.config
+import logging
 import time
 import unittest
 

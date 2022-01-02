@@ -1,10 +1,7 @@
-import logging.config
 import unittest
 
 from pyning.tail_recursion.exponent import exp
 from pyning.utils.testutils import BaseTest
-
-log = logging.getLogger(__name__)
 
 
 class ExponentTest(BaseTest):
