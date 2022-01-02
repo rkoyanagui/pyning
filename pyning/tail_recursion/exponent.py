@@ -62,3 +62,24 @@ def fast_rpe_exp(b: int, p: int):
                 return helper(x * x, n / 2, acc)
 
     return helper(b, p, 1)
+
+
+def loop_exp(b: int, p: int) -> int:
+    def helper(b1: int, p1: int, acc: int) -> int:
+        while True:
+            if b1 == 0:
+                return 0
+            elif p1 == 0:
+                return acc
+            elif p1 == 1:
+                return b1 * acc
+            else:
+                if odd(p1):
+                    acc = b1 * acc
+                    p1 = (p1 - 1) // 2
+                    b1 = b1 * b1
+                else:
+                    p1 = p1 // 2
+                    b1 = b1 * b1
+
+    return helper(b, p, 1)

@@ -2,7 +2,7 @@ import logging
 import time
 import unittest
 
-from pyning.tail_recursion.exponent import exp, rpe_exp, fast_rpe_exp
+from pyning.tail_recursion.exponent import exp, rpe_exp, fast_rpe_exp, loop_exp
 from pyning.utils.testutils import BaseTest
 
 log = logging.getLogger(__name__)
@@ -47,6 +47,25 @@ class ExponentSpeedTest(BaseTest):
                   f" to calculate {b} ^ {p}")
 
         self.assertLess(fast_rpe_exp_duration, rpe_exp_duration)
+
+    def test_loop_exp_speed(self):
+        b = 3
+        p = 240000
+        t0 = time.time_ns()
+        fast_rpe_exp(b, p)
+        t1 = time.time_ns()
+        fast_rpe_exp_duration = t1 - t0
+        log.debug(f"fast_rpe_exp took\t{fast_rpe_exp_duration:>12} nanoseconds"
+                  f" to calculate {b} ^ {p}")
+
+        t0 = time.time_ns()
+        loop_exp(b, p)
+        t1 = time.time_ns()
+        loop_exp_duration = t1 - t0
+        log.debug(f"loop_exp took\t\t{loop_exp_duration:>12} nanoseconds"
+                  f" to calculate {b} ^ {p}")
+
+        self.assertLess(loop_exp_duration, fast_rpe_exp_duration)
 
 
 if __name__ == '__main__':
