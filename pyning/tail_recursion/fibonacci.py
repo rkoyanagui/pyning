@@ -1,7 +1,7 @@
 from typing import Tuple
 
 
-def fib(n: int) -> int:
+def tr_fib(n: int) -> int:
     """
     Calculates the nth Fibonacci value, using tail recursion, and the minimum
     amount of memory (stores only the last two values needed to get
@@ -17,6 +17,23 @@ def fib(n: int) -> int:
             return helper(x + 1, s1)
         else:
             return s[1]
+
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return helper(1, (0, 1))
+
+
+def loop_fib(n: int) -> int:
+    def helper(x: int, s: Tuple) -> int:
+        while True:
+            if x < n:
+                s = (s[1], s[0] + s[1])
+                x = x + 1
+            else:
+                return s[1]
 
     if n <= 0:
         return 0
