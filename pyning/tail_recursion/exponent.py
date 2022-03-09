@@ -2,11 +2,7 @@ def odd(n):
     return n % 2 == 1
 
 
-def exp(b: int, p: int):
-    """
-    Performs exponentiation using the definition.
-    We ignore case in which exponent is negative for simplicity.
-    """
+def naive_exp(b: int, p: int):
     if b == 0:
         return 0
     elif b == 1:

@@ -1,8 +1,8 @@
-def factorial(n):
+def naive_factorial(n):
     if n <= 1:
         return 1
     else:
-        return n * factorial(n - 1)
+        return n * naive_factorial(n - 1)
 
 
 def tr_factorial(n: int) -> int:
@@ -20,11 +20,9 @@ def tr_factorial(n: int) -> int:
 
 def loop_factorial(n: int) -> int:
     def helper(m: int, acc: int) -> int:
-        while True:
-            if m <= 1:
-                return acc
-            else:
-                acc = m * acc
-                m = m - 1
+        while m > 1:
+            acc = m * acc
+            m = m - 1
+        return acc
 
     return helper(n, 1)

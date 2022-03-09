@@ -131,6 +131,7 @@ class CircleDraught(tk.Frame):
         )
 
 
-app = CircleDraught()
-app.master.title("Circle")
-app.mainloop()
+if __name__ == "__main__":
+    app = CircleDraught()
+    app.master.title("Circle")
+    app.mainloop()
